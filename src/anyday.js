@@ -16,10 +16,11 @@ driver.init(desired).then(() => {
     .elementByXPath(ep('//DatePicker/LinearLayout/LinearLayout/LinearLayout/TextView'))
     .click()
     .sleep(3000)
+    .then(() => console.log('get default year'))
     .then(() => {
       return Promise.all([
-          Promise.resolve(wdUtils.getDefaultYear(driver)), 
-          Promise.resolve(wdUtils.getYearSelectorLocation(driver))
+          wdUtils.getDefaultYear(driver), 
+          wdUtils.getYearSelectorLocation(driver)
         ])
         .then((values) => {
           console.log('defaultYear: ' + values[0])
@@ -28,5 +29,11 @@ driver.init(desired).then(() => {
           return wdUtils.newSwipe(driver, wd, values[1])
         })
     })
+    .then(() => console.log('get default month'))
+    .then(() => wdUtils.getDefaultMonth(driver))
+    .then(text => console.log(text))
+    .then(() => console.log('get default day'))
+    .then(() => wdUtils.getDefaultDay(driver))
+    .then(text => console.log(text))
     .then(() => console.log('finish'))
 })

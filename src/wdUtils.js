@@ -17,6 +17,20 @@ exports.getDefaultYear = (driver) => {
     .catch(err => console.log(err))
 }
 
+exports.getDefaultMonth = (driver) => {
+  return driver
+    .elementByXPath(ep('//DatePicker/LinearLayout/LinearLayout/LinearLayout/LinearLayout/TextView[@index="0"]'))
+    .text()
+    .catch(err => console.log(err))
+}
+
+exports.getDefaultDay = (driver) => {
+  return driver
+    .elementByXPath(ep('//DatePicker/LinearLayout/LinearLayout/LinearLayout/LinearLayout/TextView[@index="1"]'))
+    .text()
+    .catch(err => console.log(err))
+}
+
 exports.getYearSelectorLocation = (driver) => {
   return driver
     .elementsByXPath(ep('//DatePicker/LinearLayout/ViewAnimator/ListView/TextView'))
