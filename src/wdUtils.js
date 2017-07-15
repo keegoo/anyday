@@ -1,4 +1,6 @@
-exports.newSwipe = (driver, locations) => {
+var ep = require('./utils').expendElementPrefix
+
+exports.newSwipe = (driver, wd, locations) => {
   const action = new wd.TouchAction(driver)
   return action
     .press({x: 300, y: 700})
@@ -6,4 +8,23 @@ exports.newSwipe = (driver, locations) => {
     .moveTo({x: 300, y: 1000})
     .release()
     .perform()
+}
+
+exports.getDefaultYear = (driver) => {
+  return driver
+    .elementByXPath(ep('//DatePicker/LinearLayout/ViewAnimator'))
+    .getAttribute("name")
+    .catch(err => console.log(err))
+}
+
+exports.getYearSelectorLocation = (driver) => {
+  return driver
+    .elementsByXPath(ep('//DatePicker/LinearLayout/ViewAnimator/ListView/TextView'))
+    .then(els => {
+      return Promise.all([
+          els[0].getLocation(),
+          els[els.length - 1].getLocation()
+        ])
+    })
+    .catch(err => console.log(err))
 }
