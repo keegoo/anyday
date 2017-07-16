@@ -4,7 +4,7 @@ exports.android22 = {
   platformName:     'Android',
   platformVersion:  '5.1',
   deviceName:       'Android Emulator',
-  app:              '/home/keegoo/Desktop/workplace/QATestChallege.apk'
+  app:              undefined // will be set later
 }
 
 exports.iso81 = {

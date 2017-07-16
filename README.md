@@ -53,6 +53,14 @@ start appium:
 $ ./node_modules/.bin/appium
 ```
 
+specify .apk location:
+
+```javascript
+// == specify .apk package location ==
+desired.app = '/home/keegoo/Desktop/workplace/QATestChallege.apk'
+// =================================== 
+```
+
 run script:
 
 ```shell

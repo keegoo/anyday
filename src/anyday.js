@@ -6,6 +6,10 @@ var utils = require('./utils')
 
 let driver = wd.promiseChainRemote('127.0.0.1', 4723)
 
+// == specify .apk package location ==
+desired.app = '/home/keegoo/Desktop/workplace/QATestChallege.apk'
+// =================================== 
+
 driver.init(desired).then(() => {
 
   // ======= change calendar here=======
