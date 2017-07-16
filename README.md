@@ -2,15 +2,17 @@
 
 ## introduction
 
-anyday only been tested in `Ubuntu 16.04`.
-anyday only been tested under `android Device API level: 22`.
-anyday was developped with `Javascript` + `appium`.
+`anyday` only been tested in `Ubuntu 16.04`.
+
+`anyday` only been tested under `android Device API level: 22`.
+
+`anyday` was developped with `Javascript` + `appium`.
 
 ## Prerequisites
 
-You need to install Java, Node and Android sdk.
+You need to install `Java`, `Node` and `Android sdk`.
 
-*note: as [ES6](https://github.com/lukehoban/es6features) was used for writing Javascript, it's better node's version could be higher than v6.11.0 * 
+*note: as [ES6](https://github.com/lukehoban/es6features) was used for writing Javascript, it's better node's version be higher than v6.11.0* 
 
 ```shell
 $ java -version
@@ -31,7 +33,7 @@ $ echo $ANDROID_HOME
 
 ## ENV setup
 
-**note**: following commands all should be executed inside `anyday` folder.
+**note**: following commands all should be executed inside `anyday` folder!!!
 
 #### install npm packages
 
@@ -49,8 +51,6 @@ start appium:
 
 ```shell
 $ ./node_modules/.bin/appium
-[Appium] Welcome to Appium v1.6.5 (REV 4745f0d40ec3d2840911d2e9c17ec6739d46f61d)
-[Appium] Appium REST http interface listener started on 0.0.0.0:4723
 ```
 
 run script:
@@ -59,7 +59,7 @@ run script:
 $ node src/anyday.js
 ```
 
-If you want to run other cases, simply change `var calendar`
+If you want to run other cases, simply change `var calendar` insde `src/anyday.js`
 
 ```javascript
   // ======= change calendar here=======
@@ -74,7 +74,7 @@ If you want to run other cases, simply change `var calendar`
 
 ## run tests
 
-I write unit tests for src/utils.js. 
+I write unit tests for `src/utils.js`. 
 
 Use following commands to execute the tests:
 
