@@ -15,16 +15,16 @@ const newSwipe = (driver, wd, locations) => {
 // startPoint:  {x, y}
 // direction:   up/down/left/right
 const newSwipeTo = (driver, wd, startPoint, distance, direction) => {
-  if (direction == 'up') {
+  if (direction === 'up') {
     return newSwipe(driver, wd, [startPoint.x, startPoint.y, startPoint.x, startPoint.y - distance])  
-  } else if (direction == 'down') {
+  } else if (direction === 'down') {
     return newSwipe(driver, wd, [startPoint.x, startPoint.y, startPoint.x, startPoint.y + distance])
-  } else if (direction == 'left') {
+  } else if (direction === 'left') {
     return newSwipe(driver, wd, [startPoint.x, startPoint.y, startPoint.x - distance, startPoint.y])
-  } else if (direction == 'right') {
+  } else if (direction === 'right') {
     return newSwipe(driver, wd, [startPoint.x, startPoint.y, startPoint.x + distance, startPoint.y])
   } else {
-    throw `error: cannot identify direction: ${direction}`
+    throw `newSwipeTo error: cannot identify direction: ${direction}`
   }
 }
 
@@ -35,32 +35,32 @@ const newSwipeTo = (driver, wd, startPoint, distance, direction) => {
 exports.newSwipeArea = (driver, wd, location, direction) => {
   let startPoint = 0
   let distance = 0
-  if (direction == 'up') {
+  if (direction === 'up') {
     startPoint = {
       x: location[0].x + location[1].width / 2,
       y: location[0].y + location[1].height / 2
     }
     distance = location[1].height / 2
-  } else if (direction == 'down') {
+  } else if (direction === 'down') {
     startPoint = {
       x: location[0].x + location[1].width / 2,
       y: location[0].y
     }
     distance = location[1].height / 2
-  } else if (direction == 'left') {
+  } else if (direction === 'left') {
     startPoint = {
       x: location[0].x + location[1].width,
       y: location[0].y + location[1].height / 2 
     }
     distance = location[1].width / 2
-  } else if (direction == 'right') {
+  } else if (direction === 'right') {
     startPoint = {
       x: location[0].x,
       y: location[0].y + location[1].height / 2
     }
     distance = location[1].width / 2
   } else {
-    throw `error: cannot identify direction: ${direction}`
+    throw `newSwipeArea error: cannot identify direction: ${direction}`
   }
   return newSwipeTo(driver, wd, startPoint, distance, direction)
 }

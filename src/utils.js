@@ -27,3 +27,31 @@ const androidPrefix = (type) => {
 exports.sleep = (ms) => {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+exports.removeLeadingZero = (str) => { 
+  return typeof(str) === 'string' ? `${Number(str)}` : str
+}
+
+exports.monthAbbrToNum = (str) => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  const index = months.map(x => x.toUpperCase()).indexOf(str.toUpperCase())
+  return index === -1 ? '0' : `${index + 1}`
+}
+
+exports.monthNumToWord = (str) => {
+  const months = [
+    'January', 
+    'February', 
+    'March', 
+    'April', 
+    'May', 
+    'June', 
+    'July', 
+    'August', 
+    'September', 
+    'October', 
+    'November', 
+    'December'
+    ]
+  return months[Number(str) - 1]
+}
