@@ -19,7 +19,9 @@ exports.expendElementPrefix = (xpathStr) => {
 }
 
 const androidPrefix = (type) => {
-  return type === 'View' ? `android.view.${type}` : `android.widget.${type}`
+  // need to remove trailing selector
+  // when 'View[@text="July"]'
+  return type.replace(/\[.*\]/, '') === 'View' ? `android.view.${type}` : `android.widget.${type}`
 }
 
 exports.sleep = (ms) => {
