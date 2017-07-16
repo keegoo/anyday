@@ -12,5 +12,10 @@ describe('utils', () => {
       const str = utils.expendElementPrefix('ListView')
       expect(str).to.equal('ListView')
     })
+
+    it('should add "android.view" to "View"', () => {
+      const str = utils.expendElementPrefix('//ListView/View')
+      expect(str).to.equal('//android.widget.ListView/android.view.View')
+    })
   })
 })

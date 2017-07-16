@@ -8,7 +8,7 @@ exports.expendElementPrefix = (xpathStr) => {
     const tmp = xpathStr
      .split('/')
      .filter(x => x.length !== 0)
-     .map(x => `android.widget.${x}`)
+     .map(x => androidPrefix(x))
      .join('/')
 
     return '//' + tmp
@@ -18,3 +18,10 @@ exports.expendElementPrefix = (xpathStr) => {
   }
 }
 
+const androidPrefix = (type) => {
+  return type === 'View' ? `android.view.${type}` : `android.widget.${type}`
+}
+
+exports.sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
