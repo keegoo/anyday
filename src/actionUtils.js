@@ -1,3 +1,12 @@
+//
+// **newSwipeArea** is the exposed function for swipe action.
+// you simply passed in: 
+//   1. [{x, y}, {width, height}], a.k.a location.
+//   2. a direction: up/down/left/right.
+// then **newSwipeArea** will do the calculation and swipe as you wish.
+//
+
+
 // =========================
 // locations: [startX, startY, endX, endY]
 const newSwipe = (driver, wd, locations) => {

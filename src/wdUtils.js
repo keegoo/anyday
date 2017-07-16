@@ -24,7 +24,6 @@ exports.getDefaultDay = (driver) => {
     .catch(err => console.log(err))
 }
 
-
 exports.openYearSelector = (driver) => {
   return driver
     .elementByXPath(ep('//DatePicker/LinearLayout/LinearLayout/LinearLayout/TextView'))
@@ -43,7 +42,6 @@ exports.getYearSelectorLocation = (driver) => {
         ])
     })
     .then((location) => {
-      console.log(location)
       return location
     })
     .catch(err => console.log(err))

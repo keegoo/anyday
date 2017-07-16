@@ -9,7 +9,7 @@ let driver = wd.promiseChainRemote('127.0.0.1', 4723)
 driver.init(desired).then(() => {
 
   // ======= change calendar here=======
-  const calendar = '2018-12-31'
+  const calendar = '2025-12-31'
   // examples: 
   // const calendar = '2017-01-31'
   // const calendar = '2021-12-01'
@@ -50,5 +50,5 @@ driver.init(desired).then(() => {
     .then(() => wdUtils.chooseTargetDay(driver, targetDay))
     // final: catch any error
     .catch(err => console.log(err))
-})
+}).quit()
 
