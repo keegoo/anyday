@@ -1,14 +1,5 @@
 var ep = require('./utils').expendElementPrefix
-
-exports.newSwipe = (driver, wd, locations) => {
-  const action = new wd.TouchAction(driver)
-  return action
-    .press({x: 300, y: 700})
-    .wait(1000)
-    .moveTo({x: 300, y: 1000})
-    .release()
-    .perform()
-}
+var acUtils = require('./actionUtils')
 
 exports.getDefaultYear = (driver) => {
   return driver
@@ -31,14 +22,40 @@ exports.getDefaultDay = (driver) => {
     .catch(err => console.log(err))
 }
 
+
+exports.openYearSelector = (driver) => {
+  return driver
+    .elementByXPath(ep('//DatePicker/LinearLayout/LinearLayout/LinearLayout/TextView'))
+    .click()
+    .sleep(1000)
+    .catch(err => console.log(err))
+}
+
 exports.getYearSelectorLocation = (driver) => {
   return driver
-    .elementsByXPath(ep('//DatePicker/LinearLayout/ViewAnimator/ListView/TextView'))
-    .then(els => {
+    .elementByXPath(ep('//DatePicker/LinearLayout/ViewAnimator'))
+    .then(ele => {
       return Promise.all([
-          els[0].getLocation(),
-          els[els.length - 1].getLocation()
+          ele.getLocation(),
+          ele.getSize()
         ])
     })
+    .then((location) => {
+      console.log(location)
+      return location
+    })
     .catch(err => console.log(err))
+}
+
+exports.chooseTargetYear = (driver, wd, targetYear, location) => {
+  return driver
+    .elementByXPath(ep('//DatePicker/LinearLayout/ViewAnimator/ListView/TextView[@text="2000"]'))
+    .click()
+    .sleep(1000)
+    .catch(err => {
+      Promise.resolve(acUtils.newSwipeArea(driver, wd, location, 'down'))
+        .then(() => {
+          exports.chooseTargetYear(driver, wd, targetYear, location)
+        })
+    })
 }
