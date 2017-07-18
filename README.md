@@ -70,7 +70,7 @@ run script:
 $ node src/anyday.js
 ```
 
-If you want to run other cases, simply change `var calendar` insde `src/anyday.js`
+If you want to run other cases, simply change `var calendar` inside `src/anyday.js`
 
 ```javascript
   // ======= change calendar here=======
