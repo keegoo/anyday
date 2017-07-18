@@ -7,6 +7,15 @@ exports.android22 = {
   app:              undefined // will be set later
 }
 
+exports.android18 = {
+  browserName:      '',
+  'appium-version': '1.6.5',
+  platformName:     'Android',
+  platformVersion:  '4.4.4',
+  deviceName:       'Android Emulator',
+  app:              undefined // will be set later
+}
+
 exports.iso81 = {
   browserName:      '',
   'appium-version': '1.6.5',

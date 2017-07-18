@@ -43,7 +43,7 @@ $ npm install
 
 #### emulator
 
-I don't have an emulator installed yet, so I connect to my cellphone with usb-debug open.
+Currently only support Android api level 18 and 22
 
 ## run scripts
 
@@ -53,12 +53,15 @@ start appium:
 $ ./node_modules/.bin/appium
 ```
 
-specify .apk location:
+specify .apk location and api level in `src/anyday.js`:
 
 ```javascript
-// == specify .apk package location ==
-desired.app = '/home/keegoo/Desktop/workplace/QATestChallege.apk'
-// =================================== 
+const config = {
+  // choose which api level be tested
+  androidAPILevel: '22',
+  // == specify .apk package location ==
+  app: : '/home/keegoo/Desktop/workplace/QATestChallege.apk'
+}
 ```
 
 run script:

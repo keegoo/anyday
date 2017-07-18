@@ -1,13 +1,34 @@
 var wd = require('wd')
 
-var desired = require('./caps').android22
-var wdUtils = require('./wdUtils')
+const config = {
+  // choose which api level be tested
+  androidAPILevel: '22',
+  // == specify .apk package location ==
+  app: '/home/keegoo/Desktop/workplace/QATestChallege.apk'
+}
+
+const loadModule = (level) => {
+  return require(`./androidLevel${level}`).api
+}
+
+const loadCap = (level) => {
+  if (level === '18') {
+    return require('./caps').android18
+  } else if (level === '22') {
+    return require('./caps').android22
+  } else {
+    return require('./caps').iso81
+  }
+}
+
+var desired = loadCap(config.androidAPILevel)
+var wdUtils = loadModule(config.androidAPILevel)
 var utils = require('./utils')
+
 
 let driver = wd.promiseChainRemote('127.0.0.1', 4723)
 
-// == specify .apk package location ==
-desired.app = '/home/keegoo/Desktop/workplace/QATestChallege.apk'
+desired.app = config.app
 // =================================== 
 
 driver.init(desired).then(() => {
@@ -23,6 +44,7 @@ driver.init(desired).then(() => {
   const [targetYear, targetMonth, targetDay] = calendar.split('-').map(utils.removeLeadingZero)
   let yearLookupdirect = 'up'
   let monthLookupdirect = 'up'
+  let dayLookupdirect = 'up'
 
   return Promise.all([
       // get default year, month and day when the calendar lauched
@@ -39,6 +61,7 @@ driver.init(desired).then(() => {
       const [year, month, day] = values
       yearLookupdirect = Number(targetYear) > Number(year) ? 'up' : 'down'
       monthLookupdirect = Number(targetMonth) > Number(month) ? 'up' : 'down'
+      dayLookupdirect = Number(targetDay) > Number(day) ? 'up' : 'down'
     })
     // step 1: click 'Year' to open 'Year selector'
     .then(() => wdUtils.openYearSelector(driver))
@@ -47,11 +70,13 @@ driver.init(desired).then(() => {
     // step 3: swipe in the 'Year selector', until the target year been clicked(chosen)
     .then(location => wdUtils.chooseTargetYear(driver, wd, targetYear, location, yearLookupdirect))
     // step 4: get 'Calendar' location (Calendar share the same area with Year Selector)
-    .then(() => wdUtils.getCalendarLocation(driver))
+    .then(() => wdUtils.getMonthSelectorLocation(driver))
     // step 5: swipe in the 'Canledar', until the target month showed up.
     .then(location => wdUtils.chooseTargetMonth(driver, wd, targetMonth, location, monthLookupdirect))
+    // 
+    .then(() => wdUtils.getDaySelectorLocation(driver))
     // step 6: choose target day within the target month
-    .then(() => wdUtils.chooseTargetDay(driver, targetDay))
+    .then((location) => wdUtils.chooseTargetDay(driver, wd, targetDay, location, dayLookupdirect))
     // final: catch any error
     .catch(err => console.log(err))
 }).quit()

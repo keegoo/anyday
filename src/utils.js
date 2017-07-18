@@ -60,3 +60,21 @@ exports.monthNumToWord = (str) => {
     ]
   return months[Number(str) - 1]
 }
+
+exports.monthNumToAbbr = (str) => {
+  const months = [
+    'Jan', 
+    'Feb', 
+    'Mar', 
+    'Apr', 
+    'May', 
+    'Jun', 
+    'Jul', 
+    'Aug', 
+    'Sep', 
+    'Oct', 
+    'Nov', 
+    'Dec'
+    ]
+  return months[Number(str) - 1]
+} 

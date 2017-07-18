@@ -1,15 +1,16 @@
+var api = require('./androidGeneric')
 var ep = require('./utils').expendElementPrefix
 var utils = require('./utils')
 var acUtils = require('./actionUtils')
 
-exports.getDefaultYear = (driver) => {
+api.getDefaultYear = (driver) => {
   return driver
     .elementByXPath(ep('//DatePicker/LinearLayout/LinearLayout/LinearLayout/TextView'))
     .getAttribute("name")
     .catch(err => console.log(err)) 
 }
 
-exports.getDefaultMonth = (driver) => {
+api.getDefaultMonth = (driver) => {
   return driver
     .elementByXPath(ep('//DatePicker/LinearLayout/LinearLayout/LinearLayout/LinearLayout/TextView[@index="0"]'))
     .text()
@@ -17,14 +18,14 @@ exports.getDefaultMonth = (driver) => {
     .catch(err => console.log(err))
 }
 
-exports.getDefaultDay = (driver) => {
+api.getDefaultDay = (driver) => {
   return driver
     .elementByXPath(ep('//DatePicker/LinearLayout/LinearLayout/LinearLayout/LinearLayout/TextView[@index="1"]'))
     .text()
     .catch(err => console.log(err))
 }
 
-exports.openYearSelector = (driver) => {
+api.openYearSelector = (driver) => {
   return driver
     .elementByXPath(ep('//DatePicker/LinearLayout/LinearLayout/LinearLayout/TextView'))
     .click()
@@ -32,7 +33,7 @@ exports.openYearSelector = (driver) => {
     .catch(err => console.log(err))
 }
 
-exports.getYearSelectorLocation = (driver) => {
+api.getYearSelectorLocation = (driver) => {
   return driver
     .elementByXPath(ep('//DatePicker/LinearLayout/ViewAnimator'))
     .then(ele => {
@@ -41,17 +42,21 @@ exports.getYearSelectorLocation = (driver) => {
           ele.getSize()
         ])
     })
-    .then((location) => {
+    .then(location => {
       return location
     })
     .catch(err => console.log(err))
 }
 
-exports.getCalendarLocation = (driver) => {
-  return exports.getYearSelectorLocation(driver)
+api.getMonthSelectorLocation = (driver) => {
+  return api.getYearSelectorLocation(driver)
 }
 
-exports.chooseTargetYear = (driver, wd, targetYear, location, direct) => {
+api.getDaySelectorLocation = (driver) => {
+  return api.getYearSelectorLocation(driver)
+}
+
+api.chooseTargetYear = (driver, wd, targetYear, location, direct) => {
   return driver
     .elementByXPath(ep(`//DatePicker/LinearLayout/ViewAnimator/ListView/TextView[@text="${targetYear}"]`))
     .click()
@@ -61,11 +66,11 @@ exports.chooseTargetYear = (driver, wd, targetYear, location, direct) => {
         acUtils.newSwipeArea(driver, wd, location, direct),
         utils.sleep(500)
       ])
-      .then(() => exports.chooseTargetYear(driver, wd, targetYear, location, direct))
+      .then(() => api.chooseTargetYear(driver, wd, targetYear, location, direct))
     })
 }
 
-exports.chooseTargetMonth = (driver, wd, targetMonth, location, direct) => {
+api.chooseTargetMonth = (driver, wd, targetMonth, location, direct) => {
   const monthAbbr = utils.monthNumToWord(targetMonth)
   return driver
     .elementByXPath(ep(`//DatePicker/LinearLayout/ViewAnimator/ListView/View/View[contains(@content-desc, "${monthAbbr}")]`))
@@ -75,14 +80,16 @@ exports.chooseTargetMonth = (driver, wd, targetMonth, location, direct) => {
         acUtils.newSwipeArea(driver, wd, location, direct),
         utils.sleep(2000)
       ])
-      .then(() => exports.chooseTargetMonth(driver, wd, targetMonth, location, direct))
+      .then(() => api.chooseTargetMonth(driver, wd, targetMonth, location, direct))
     })
 }
 
-exports.chooseTargetDay = (driver, targetDay) => {
+api.chooseTargetDay = (driver, wd, targetDay, location, direct) => {
   return driver
     .elementByXPath(ep(`//DatePicker/LinearLayout/ViewAnimator/ListView/View/View[@index=${targetDay-1}]`))
     .click()
     .sleep(1000)
     .catch(err => console.log(err))
 }
+
+exports.api = api
